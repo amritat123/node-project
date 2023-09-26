@@ -7,6 +7,8 @@ const mongoose = require("mongoose");
 const studentRoutes = require("./apis/routes/student");
 const otpRoutes = require("./apis/routes/otp");
 const subjectRoutes = require("./apis/routes/subject");
+const cronPush = require("./apis/cronPushNotification");
+const pushNotificationRoute = require("./apis/routes/push_notification");
 
 require("dotenv").config();
 require("./apis/config/db");
@@ -34,6 +36,7 @@ app.use((req, res, next) => {
 app.use("/api/student", studentRoutes);
 app.use("/api/otp", otpRoutes);
 app.use("/api/subject", subjectRoutes);
+app.use("/api/push-notification", pushNotificationRoute);
 
 app.use("/cancel", (req, res) => {
   console.log("cancel");

@@ -1,6 +1,7 @@
 const StudentModel = require("../model/student");
 const niv = require("node-input-validator");
 const jwt = require("jsonwebtoken");
+const FCMDB = require("../model/fcm");
 const bcrypt = require("bcrypt");
 const { default: mongoose } = require("mongoose");
 const { find } = require("../model/student");
@@ -269,6 +270,51 @@ exports.deleteProfile = async (req, res) => {
     return res.status(500).send({
       message: "Error accorded , please try again later",
       error: error,
+    });
+  }
+};
+
+exports.saveFCM = async (req, res) => {
+  const ObjValidation = new niv.Validator(req.body, {
+    device: "required",
+    type: "required",
+    token: "required",
+  });
+  const matched = await ObjValidation.check();
+  if (!matched) {
+    return res.status(422).json({
+      message: "validation error",
+      error: ObjValidation.errors,
+    });
+  }
+  try {
+    const { device, type, token, studentID } = req.body;
+    let check = await FCMDB.findOne({ studentID: studentID });
+    if (check) {
+      await FCMDB.findOneAndUpdate(
+        { studentID: studentID },
+        { token: token, device: device }
+      );
+      return res.status(201).send({
+        message: "Successful Exist",
+        result: check,
+      });
+    }
+    let result = await FCMDB.create({
+      device: device,
+      type: type,
+      token: token,
+      studentID: studentID,
+    });
+    return res.status(201).send({
+      message: "Successful",
+      result: result,
+    });
+  } catch (err) {
+    console.log("error", err);
+    return res.status(500).json({
+      message: "Error occurred, Please try again later",
+      error: err,
     });
   }
 };

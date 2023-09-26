@@ -68,4 +68,6 @@ router.put(
   studentController.deleteProfile
 );
 
+router.post("/save-fcm", checkStudentAuth, studentController.saveFCM);
+
 module.exports = router;
