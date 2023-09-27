@@ -33,11 +33,11 @@ async function sendPushNotification(deviceToken, title, body) {
 // Schedule the sendPushNotification function to run every minute
 // cron.schedule("* * * * *", () => {
 // Define the push notification parameters here
-console.log("cron started in per minute");
+// console.log("cron started in per minute");
 const deviceToken = " your_receiver_token"; // token of receiver
 const title = "Test Notification";
 const body = "This is for testing purpose";
 
 // Call the sendPushNotification function
-sendPushNotification(deviceToken, title, body);
+// sendPushNotification(deviceToken, title, body);
 // });
