@@ -10,6 +10,7 @@ const subjectRoutes = require("./apis/routes/subject");
 const cronPush = require("./apis/cronPushNotification");
 const pushNotificationRoute = require("./apis/routes/push_notification");
 const pdfRoutes = require("./apis/routes/pdf_generation");
+const excelRoutes = require("./apis/routes/excel");
 
 require("dotenv").config();
 require("./apis/config/db");
@@ -39,6 +40,7 @@ app.use("/api/otp", otpRoutes);
 app.use("/api/subject", subjectRoutes);
 app.use("/api/push-notification", pushNotificationRoute);
 app.use("/api/pdf", pdfRoutes);
+app.use("/api/excel", excelRoutes);
 
 app.use("/cancel", (req, res) => {
   console.log("cancel");
