@@ -23,7 +23,6 @@ async function sendPushNotification(req, res) {
         },
       }
     );
-    console.log("response", response);
     console.log("Push notification sent successfully:", response.data);
     res.status(200).json({ message: "Push notification sent successfully" });
   } catch (error) {
