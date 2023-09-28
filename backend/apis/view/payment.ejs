@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport", content="width=device-width" , initial-scale="1.0">
+        <title> Payment Form </title>
+        <script src="https://js.stripe.com/v3/"></script>
+        <script src="client.js"></script>
+    </head>
+    <body>
+        <h1>Payment Form </h1>
+        <form id="payment-form">
+            <div id="card-element">
+                <!--A Stripe Element will be inserted here.-->
+            </div>
+
+            <!-- Used to display form errors. -->
+            <div id="card-error" role="alert"></div>
+            <label for="amount">Amount(in usd):</label>
+            <input type="number" name="amount" id="amount" min="1" required >
+
+            <button type="submit">submit payment</button>
+        </form>
+    </body>
+</html>

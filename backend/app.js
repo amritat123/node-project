@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const app = express();
@@ -7,11 +8,12 @@ const mongoose = require("mongoose");
 const studentRoutes = require("./apis/routes/student");
 const otpRoutes = require("./apis/routes/otp");
 const subjectRoutes = require("./apis/routes/subject");
-const cronPush = require("./apis/cronPushNotification");
+// const cronPush = require("./apis/cronPushNotification");
 const pushNotificationRoute = require("./apis/routes/push_notification");
 const pdfRoutes = require("./apis/routes/pdf_generation");
 const excelRoutes = require("./apis/routes/excel");
 const zipRoutes = require("./apis/routes/zip");
+const paymentRoutes = require("./apis/routes/payment");
 
 require("dotenv").config();
 require("./apis/config/db");
@@ -19,6 +21,10 @@ require("./apis/config/db");
 mongoose.Promise = global.Promise;
 app.use(cors());
 app.use(morgan("dev"));
+app.set("views", path.join(__dirname, "views"));
+app.engine("html", require("ejs").renderFile);
+
+app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use("/uploads", express.static("uploads"));
@@ -43,6 +49,7 @@ app.use("/api/push-notification", pushNotificationRoute);
 app.use("/api/pdf", pdfRoutes);
 app.use("/api/excel", excelRoutes);
 app.use("/api/zip", zipRoutes);
+app.use("/api/", paymentRoutes);
 
 app.use("/cancel", (req, res) => {
   console.log("cancel");
