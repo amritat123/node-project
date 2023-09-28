@@ -11,6 +11,7 @@ const cronPush = require("./apis/cronPushNotification");
 const pushNotificationRoute = require("./apis/routes/push_notification");
 const pdfRoutes = require("./apis/routes/pdf_generation");
 const excelRoutes = require("./apis/routes/excel");
+const zipRoutes = require("./apis/routes/zip");
 
 require("dotenv").config();
 require("./apis/config/db");
@@ -41,6 +42,7 @@ app.use("/api/subject", subjectRoutes);
 app.use("/api/push-notification", pushNotificationRoute);
 app.use("/api/pdf", pdfRoutes);
 app.use("/api/excel", excelRoutes);
+app.use("/api/zip", zipRoutes);
 
 app.use("/cancel", (req, res) => {
   console.log("cancel");
